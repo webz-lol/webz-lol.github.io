@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Cluster Rush</title>
+    <link rel="icon" href="./icon.jpg">
+    <style>
+      /* a style sheet needs to be present for cursor hiding and custom cursors to work. */
+      body {
+        background-color: #222C36;
+        color: white;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      canvas {
+        margin: 0;
+        position: relative;
+        z-index: 2;
+      }
+      .loading-text {
+        position: absolute;
+        color: #8b5cf6;
+        font-size: 24px;
+        font-family: Arial, sans-serif;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-text" id="loadingText">Loading game.</div>
+    <canvas class="emscripten" id="canvas" height="480px" width="640px"></canvas>
+    <script type="text/javascript">
+      // Loading text animation
+      const loadingText = document.getElementById('loadingText');
+      const dots = ['.', '..', '...'];
+      let dotIndex = 0;
+      
+      setInterval(() => {
+        loadingText.textContent = 'Loading game' + dots[dotIndex];
+        dotIndex = (dotIndex + 1) % dots.length;
+      }, 100);
+
+      var Module = {
+        TOTAL_MEMORY: 268435456,
+        errorhandler: null, // arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
+        compatibilitycheck: null,
+        backgroundColor: "#222C36",
+        splashStyle: "Dark",
+        dataUrl: "Release/NG.data",
+        codeUrl: "Release/NG.js",
+        asmUrl: "Release/NG.asm.js",
+        memUrl: "Release/NG.mem",
+      };
+      console.log("If the file NG.mem returns a 404 error, that is ok!")
+    </script>
+    <script src="Release/UnityLoader.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
